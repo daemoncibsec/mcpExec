@@ -9,11 +9,19 @@ mcpExec is a tool that takes advantage of the CVE-2026-23744 to gather a reverse
 
 ```bash
 git clone https://github.com/daemoncibsec/mcpExec.git
+cd mcpExec
+python3 -m venv venv
+source venv/bin/activate
 pip install rich
 pip install argparse
 pip install requests
-cd mcpExec
 chmod +x mcpExec.py
+```
+
+To exit the venv:
+
+```bash
+deactivate
 ```
 
 ## Usage/Examples

